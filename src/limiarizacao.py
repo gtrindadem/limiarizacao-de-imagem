@@ -1,17 +1,20 @@
 import os
 import numpy as np
-import matplotlib as mpl
 import matplotlib.pyplot as plt
 import utils.transformacoes as transformacoes
 import tkinter as tk
 from tkinter import filedialog
 
+# Limpa root do tkinter para não abrir nenhum dialog adicional
+root = tk.Tk()
+root.withdraw()
+
 def escolher_imagem():
   root = tk.Tk()
   root.withdraw()
-  imagem = filedialog.askopenfile(title='Escolha uma imagem').name
-  print('Imagem escolhida:', os.path.basename(imagem))
-  return imagem
+
+  file_path = filedialog.askopenfilename()
+  return file_path
 
 def limiarizar_imagem(imagem):
   print('Iniciando limiarização... (Dependendo do tamanho da imagem este processo pode demorar um pouco)')
@@ -59,7 +62,7 @@ def limiarizar_imagem(imagem):
 
   img_limiarizada = str(os.path.basename(imagem)).split('.')[0] + ' (limiarizada)'
   plt.savefig(os.path.join('imagens_resultado', img_limiarizada))
-  print('Imagem limiarizada com sucesso! Sua nova imagem foi salva junto com a imagem inicialmente escolhida!')
+  print('Imagem limiarizada com sucesso! Sua nova imagem foi salva na pasta "imagens_resultado"!')
 
 # Menu interativo
 resp=True
@@ -70,13 +73,14 @@ while resp:
     """)
     resp=input("Esolha uma opção:") 
     if resp=="1":
-      imagem = ''
+      imagem_path = ''
       try:
-        imagem = escolher_imagem()
+        imagem_path = filedialog.askopenfilename()
+        print(imagem_path)
       except:
         print('Ocorreu um erro ao escolher imagem, tente novamente')
       try:
-        limiarizar_imagem(imagem)
+        limiarizar_imagem(imagem_path)
       except:
         print('Ocorreu um erro ao limiarizar a imagem, tente novamente')
     elif resp=="2":
