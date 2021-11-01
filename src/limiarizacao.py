@@ -9,13 +9,6 @@ from tkinter import filedialog
 root = tk.Tk()
 root.withdraw()
 
-def escolher_imagem():
-  root = tk.Tk()
-  root.withdraw()
-
-  file_path = filedialog.askopenfilename()
-  return file_path
-
 def limiarizar_imagem(imagem):
   print('Iniciando limiarização... (Dependendo do tamanho da imagem este processo pode demorar um pouco)')
 
